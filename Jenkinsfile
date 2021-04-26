@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env groovy
 
 properties([
@@ -112,10 +113,31 @@ stage('Publish Docker img') {
       if ('master'.equals(currentBranch)) {
         milestone label: 'docker-image-latest'
         image.push "latest"
+=======
+pipeline {
+  agent any
+  
+  stages {
+    stage('Build') {
+      tools {
+        maven '3.3.9'
+        jdk '8u112'
+      }
+      
+      steps {
+        sh 'mvn clean verify'
+      }
+      
+      post {
+        success {
+          archiveArtifact 'target/simple-app.jar'
+        }
+>>>>>>> feature/pipeline-model
       }
     }
   }
 }
+<<<<<<< HEAD
 
 if ('master'.equals(currentBranch)) {
   stage('Release') {
@@ -143,3 +165,5 @@ def mvn(def goals) {
   }
 }
 >>>>>>> feature/build-in-jenkins-with-nodes
+=======
+>>>>>>> feature/pipeline-model
